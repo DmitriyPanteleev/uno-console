@@ -24,6 +24,8 @@ class Deck:
         self.play_deck.append(card)
 
     def get_card(self):
+        if len(self.play_deck) == 0 :
+            return "empty"
         return self.play_deck.pop(0)
 
 class Player:
