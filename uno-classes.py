@@ -26,6 +26,11 @@ class Deck:
     def get_card(self):
         return self.play_deck.pop(0)
 
+class Player:
+    # Player parameters
+    hand_cards = []
+    credit = 0
+
 curr_deck = Deck()
 
 for card in curr_deck.play_deck:
