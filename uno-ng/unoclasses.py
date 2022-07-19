@@ -28,16 +28,44 @@ class Deck:
             return "empty"
         return self.play_deck.pop(0)
 
+# Player class
 class Player:
     # Player parameters
+    name = ""
     hand_cards = []
     credit = 0
+
+    # Creating playres
+    def __init__(self, name) -> None:
+        self.name = name
 
     def get_card(self, card):
         self.hand_cards.append(card)
 
+    def do_step(self, card):
+        for i_card in self.hand_cards:
+            if i_card[0] == card[0]:
+                self.hand_cards.remove(i_card)
+                return i_card
+        for i_card in self.hand_cards:
+            if i_card[1] == card[1]:
+                self.hand_cards.remove(i_card)
+                return i_card
+        return 'get_card_from_deck'
 
-curr_deck = Deck()
+if __name__ == '__main__':
 
-for card in curr_deck.play_deck:
-    print(card)
+    curr_deck = Deck()
+    
+    print(curr_deck.play_deck)
+
+    player1 = Player('player1')
+
+    for i in range(6):
+        card = curr_deck.get_card()
+        if card != "empty":
+            player1.get_card(card)
+        else:
+            print("The deck is empty")
+    
+    print(player1.hand_cards)
