@@ -33,7 +33,6 @@ class Player:
     # Player parameters
     name = ""
     hand_cards = []
-    credit = 0
 
     # Creating playres
     def __init__(self, name) -> None:
