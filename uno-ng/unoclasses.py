@@ -56,16 +56,24 @@ class Player:
 if __name__ == '__main__':
 
     curr_deck = Deck()
-    
-    print(curr_deck.play_deck)
 
+    gamer = Player('gamer')
     player1 = Player('player1')
+    player2 = Player('player2')
+    player3 = Player('player3')
+    player4 = Player('player4')
+    player5 = Player('player5')
+    players = [gamer, player1, player2, player3, player4, player5]
 
-    for i in range(6):
-        card = curr_deck.get_card()
-        if card != "empty":
-            player1.get_card(card)
-        else:
-            print("The deck is empty")
-    
-    print(player1.hand_cards)
+    for player in players:
+        for i in range(6):
+            card = curr_deck.get_card()
+            if card != "empty":
+                player.get_card(card)
+            else:
+                print("The deck is empty")
+
+    print(curr_deck.play_deck)    
+    for player in players:
+        print(player.name)
+        print(player.hand_cards)
