@@ -38,6 +38,7 @@ class Player:
     # Creating playres
     def __init__(self, name) -> None:
         self.name = name
+        self.hand_cards = []
 
     def get_card(self, card):
         self.hand_cards.append(card)
@@ -66,7 +67,7 @@ if __name__ == '__main__':
     players = [gamer, player1, player2, player3, player4, player5]
 
     for player in players:
-        for i in range(6):
+        for i in range(1):
             card = curr_deck.get_card()
             if card != "empty":
                 player.get_card(card)
