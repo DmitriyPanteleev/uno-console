@@ -90,5 +90,3 @@ if __name__ == '__main__':
     
     if len(players[0].hand_cards) == 0:
         print(f'Player {players[0].name} win!')
-    
-    
