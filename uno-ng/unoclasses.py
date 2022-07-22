@@ -11,6 +11,7 @@ class Deck:
 
     # Creating deck
     def __init__(self) -> None:
+        self.play_deck = []
         for i in range(4):
             for j in range(13):
                 card = self.color[i] + self.value[j]
@@ -57,6 +58,8 @@ if __name__ == '__main__':
 
     curr_deck = Deck()
 
+    table_card = curr_deck.get_card()
+
     gamer = Player('gamer')
     player1 = Player('player1')
     player2 = Player('player2')
@@ -66,7 +69,7 @@ if __name__ == '__main__':
     players = [gamer, player1, player2, player3, player4, player5]
 
     for player in players:
-        for i in range(1):
+        for i in range(6):
             card = curr_deck.get_card()
             if card != "empty":
                 player.get_card(card)
@@ -77,3 +80,15 @@ if __name__ == '__main__':
     for player in players:
         print(player.name)
         print(player.hand_cards)
+
+    play_card = players[0].do_step(table_card)
+    if play_card != 'get_card_from_deck':
+        curr_deck.play_deck.append(table_card)
+        table_card = play_card
+    else:
+        players[0] = curr_deck.get_card()
+    
+    if len(players[0].hand_cards) == 0:
+        print(f'Player {players[0].name} win!')
+    
+    
