@@ -50,19 +50,67 @@ class Playtable:
             return False
 
 if __name__ == '__main__':
+    # Initialize deck, players and playtable
     deck = Deck()
-    print("New deck created")
-    print(f"Deck has {len(deck.play_deck)} cards:")
-    deck.show_deck()
-
     players = []
+    table = Playtable(deck.play_deck.pop())
     for i in range(6):
         players.append(Player(f'Player {i}', deck.play_deck))
+    players[0].name = 'You'
 
-    for player in players:
-        print(f"{player.name} has {len(player.hand)} cards:")
-        player.show_hand()
-    
-    print("Deck after dealing:")
-    print(f"Deck has {len(deck.play_deck)} cards:")
-    deck.show_deck()
+    # Game loop
+    while True:
+
+        for i in range(len(players)):
+            # Show playtable and human player hand
+            print(f"Card on table: {table.tablecard}")
+            for i in range(len(players)):
+                if players[i].name == 'You':
+                    print(f"Your hand: {players[0].hand}")
+
+            if players[i].name == 'You':
+                # Get human player input
+                while True:
+                    card = input('Play a card: ')
+                    if card in players[i].hand:
+                        break
+                    else:
+                        print('You do not have this card')
+                
+                    # Check if card is playable
+                    if table.check_play_card(card):
+                        table.tablecard = card
+                        players[i].hand.remove(card)
+                    else:
+                        print('You cannot play this card')
+                        continue
+                
+                # Check if human player won
+                if len(players[0].hand) == 0:
+                    print('You won!')
+                    break
+
+                # Set new table card and put old one back in deck
+                deck.play_deck.append(table.tablecard)
+                table.tablecard = card
+
+            else:
+                while True:
+                    # Get computer player input
+                    card = random.choice(players[i].hand)
+
+                    # Check if card is playable
+                    if table.check_play_card(card):
+                        table.tablecard = card
+                        players[i].hand.remove(card)
+                        break
+
+                # Check if computer player won
+                if len(players[i].hand) == 0:
+                    print('Computer won!')
+                    break
+
+                # Set new table card and put old one back in deck
+                deck.play_deck.append(table.tablecard)
+                table.tablecard = card
+
