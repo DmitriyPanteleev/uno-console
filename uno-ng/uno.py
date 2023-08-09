@@ -60,31 +60,29 @@ if __name__ == '__main__':
 
     # Game loop
     while True:
+        print('~=New round=~')
 
         for i in range(len(players)):
             # Show playtable and human player hand
-            print(f"Card on table: {table.tablecard}")
-            for i in range(len(players)):
-                if players[i].name == 'You':
-                    print(f"Your hand: {players[0].hand}")
+            print(f"Card on table: {table.tablecard}")                   
 
             if players[i].name == 'You':
+                print(f"Your hand: {players[0].hand}")
                 # Get human player input
                 while True:
                     card = input('Play a card: ')
                     if card in players[i].hand:
-                        break
+                        # Check if card is playable
+                        if table.check_play_card(card):
+                            table.tablecard = card
+                            players[i].hand.remove(card)
+                            break
+                        else:
+                            print('You cannot play this card')
+                            continue
                     else:
                         print('You do not have this card')
-                
-                    # Check if card is playable
-                    if table.check_play_card(card):
-                        table.tablecard = card
-                        players[i].hand.remove(card)
-                    else:
-                        print('You cannot play this card')
-                        continue
-                
+                                
                 # Check if human player won
                 if len(players[0].hand) == 0:
                     print('You won!')
@@ -95,10 +93,8 @@ if __name__ == '__main__':
                 table.tablecard = card
 
             else:
-                while True:
-                    # Get computer player input
-                    card = random.choice(players[i].hand)
-
+                # Get computer player input
+                for card in players[i].hand:
                     # Check if card is playable
                     if table.check_play_card(card):
                         table.tablecard = card
