@@ -44,7 +44,7 @@ class Playtable:
         print(self.tablecard)
     
     def check_play_card(self, card):
-        if card[0] == self.tablecard[0] or card[1] == self.tablecard[1]:
+        if card[0] == '0' or card[0] == self.tablecard[0] or card[1] == self.tablecard[1]:
             return True
         else:
             return False
