@@ -88,25 +88,30 @@ if __name__ == '__main__':
                     print('You won!')
                     break
 
-                # Set new table card and put old one back in deck
+                # Put old one back in deck
                 deck.play_deck.append(table.tablecard)
-                table.tablecard = card
 
             else:
                 # Get computer player input
+                print(f"debug : {players[i].name} has {players[i].hand}")
                 for card in players[i].hand:
+                    is_card = False
                     # Check if card is playable
                     if table.check_play_card(card):
+                        is_card = True
+                        print(f"{players[i].name} played {card}")
                         table.tablecard = card
                         players[i].hand.remove(card)
+                        # Put old one back in deck
+                        deck.play_deck.append(table.tablecard)
                         break
+
+                # Draw card if no card is playable
+                if is_card == False:
+                    print(f"{players[i].name} draws a card")
+                    players[i].draw_card(deck.play_deck)
 
                 # Check if computer player won
                 if len(players[i].hand) == 0:
                     print('Computer won!')
                     break
-
-                # Set new table card and put old one back in deck
-                deck.play_deck.append(table.tablecard)
-                table.tablecard = card
-
