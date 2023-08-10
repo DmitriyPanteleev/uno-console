@@ -59,7 +59,9 @@ if __name__ == '__main__':
     players[0].name = 'You'
 
     # Game loop
-    while True:
+    no_winner = True
+    pass_step = False
+    while no_winner:
         print('~=New round=~')
 
         for i in range(len(players)):
@@ -71,11 +73,21 @@ if __name__ == '__main__':
                 # Get human player input
                 while True:
                     card = input('Play a card: ')
+                    if card == 'draw':
+                        players[i].draw_card(deck.play_deck)
+                        break
                     if card in players[i].hand:
                         # Check if card is playable
                         if table.check_play_card(card):
                             table.tablecard = card
                             players[i].hand.remove(card)
+                            # Put old one back in deck
+                            deck.play_deck.append(table.tablecard)
+                            # Wild card processing
+                            if card[0] == '0':
+                                # Pass card
+                                if card[1] == 'p':
+                                    pass_step = True
                             break
                         else:
                             print('You cannot play this card')
@@ -86,12 +98,14 @@ if __name__ == '__main__':
                 # Check if human player won
                 if len(players[0].hand) == 0:
                     print('You won!')
+                    no_winner = False
                     break
 
-                # Put old one back in deck
-                deck.play_deck.append(table.tablecard)
-
             else:
+                if pass_step:
+                    print(f"{players[i].name} passes")
+                    pass_step = False
+                    continue
                 # Get computer player input
                 print(f"debug : {players[i].name} has {players[i].hand}")
                 for card in players[i].hand:
@@ -114,4 +128,5 @@ if __name__ == '__main__':
                 # Check if computer player won
                 if len(players[i].hand) == 0:
                     print('Computer won!')
+                    no_winner = False
                     break
