@@ -65,7 +65,9 @@ if __name__ == '__main__':
     no_winner = True
     pass_step = False
     while no_winner:
+        print()
         print('~=New round=~')
+        print()
 
         for i in range(len(players)):
             # Show playtable and human player hand
@@ -109,7 +111,7 @@ if __name__ == '__main__':
                                     # Change hand
                                     while True:
                                         number_of_player = input('Choose player: ')
-                                        if number_of_player in range(1, len(players)):
+                                        if int(number_of_player) in range(len(players)):
                                             players[i].hand, players[int(number_of_player)].hand = players[int(number_of_player)].hand, players[i].hand
                                             break
                                         else:
@@ -128,7 +130,7 @@ if __name__ == '__main__':
                             continue
                     else:
                         print('You do not have this card')
-                                
+
                 # Check if human player won
                 if len(players[0].hand) == 0:
                     print('You won!')
