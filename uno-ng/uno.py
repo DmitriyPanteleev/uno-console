@@ -30,7 +30,10 @@ class Player:
             self.draw_card(deck)
 
     def draw_card(self, deck):
-        self.hand.append(deck.pop())
+        if len(deck) != 0:
+            self.hand.append(deck.pop())
+        else:
+            self.hand.append('xx')
 
     def show_hand(self):
         print(self.hand)
@@ -66,7 +69,11 @@ if __name__ == '__main__':
 
         for i in range(len(players)):
             # Show playtable and human player hand
-            print(f"Card on table: {table.tablecard}")                   
+            print(f"Card on table: {table.tablecard}")
+            if pass_step:
+                print(f"{players[i].name} passes")
+                pass_step = False
+                continue
 
             if players[i].name == 'You':
                 print(f"Your hand: {players[0].hand}")
@@ -88,6 +95,33 @@ if __name__ == '__main__':
                                 # Pass card
                                 if card[1] == 'p':
                                     pass_step = True
+                                if card[1] == 'c':
+                                    # Change color
+                                    while True:
+                                        color = input('Choose a color: ')
+                                        if color in card_colors:
+                                            table.tablecard = color + 'c'
+                                            break
+                                        else:
+                                            print('Invalid color')
+                                            continue
+                                if card[1] == 'h':
+                                    # Change hand
+                                    while True:
+                                        number_of_player = input('Choose player: ')
+                                        if number_of_player in range(1, len(players)):
+                                            players[i].hand, players[int(number_of_player)].hand = players[int(number_of_player)].hand, players[i].hand
+                                            break
+                                        else:
+                                            print('Invalid player')
+                                            continue
+                                if card[1] == 'f':
+                                    # Add next player 4 cards
+                                    for j in range(4):
+                                        players[(i + 1) % len(players)].draw_card(deck.play_deck)
+                                if card[1] == 'd':
+                                    # Change direction
+                                    players.reverse()
                             break
                         else:
                             print('You cannot play this card')
