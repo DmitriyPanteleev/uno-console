@@ -97,8 +97,8 @@ if __name__ == '__main__':
                                 # Pass card
                                 if card[1] == 'p':
                                     pass_step = True
+                                # Change color
                                 if card[1] == 'c':
-                                    # Change color
                                     while True:
                                         color = input('Choose a color: ')
                                         if color in card_colors:
@@ -107,8 +107,8 @@ if __name__ == '__main__':
                                         else:
                                             print('Invalid color')
                                             continue
+                                # Change hand with another player
                                 if card[1] == 'h':
-                                    # Change hand
                                     while True:
                                         number_of_player = input('Choose player: ')
                                         if int(number_of_player) in range(len(players)):
@@ -117,12 +117,12 @@ if __name__ == '__main__':
                                         else:
                                             print('Invalid player')
                                             continue
+                                # Add next player 4 cards
                                 if card[1] == 'f':
-                                    # Add next player 4 cards
                                     for j in range(4):
                                         players[(i + 1) % len(players)].draw_card(deck.play_deck)
+                                # Change direction
                                 if card[1] == 'd':
-                                    # Change direction
                                     players.reverse()
                             break
                         else:
@@ -138,6 +138,7 @@ if __name__ == '__main__':
                     break
 
             else:
+                input('Press enter to continue') # Debug interaption
                 if pass_step:
                     print(f"{players[i].name} passes")
                     pass_step = False
