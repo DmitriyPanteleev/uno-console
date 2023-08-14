@@ -138,7 +138,6 @@ if __name__ == '__main__':
                     break
 
             else:
-                input('Press enter to continue') # Debug interaption
                 if pass_step:
                     print(f"{players[i].name} passes")
                     pass_step = False
