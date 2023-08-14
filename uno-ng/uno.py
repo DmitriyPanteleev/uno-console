@@ -154,6 +154,32 @@ if __name__ == '__main__':
                         players[i].hand.remove(card)
                         # Put old one back in deck
                         deck.play_deck.append(table.tablecard)
+                        # Wild card processing
+                        if card[0] == '0':
+                            # Pass card
+                            if card[1] == 'p':
+                                pass_step = True
+                            # Change color
+                            if card[1] == 'c':
+                                # Add AI to choose color
+                                print(f"{players[i].name} changed color")
+                                color = random.choice(card_colors)
+                                table.tablecard = color + 'c'
+                            # Change hand with another player
+                            if card[1] == 'h':
+                                # Add AI to choose player
+                                print(f"{players[i].name} changed hand with another player")
+                                number_of_player = random.randint(0, len(players) - 1)
+                                players[i].hand, players[number_of_player].hand = players[number_of_player].hand, players[i].hand
+                            # Add next player 4 cards
+                            if card[1] == 'f':
+                                print(f"{players[i].name} added 4 cards to next player")
+                                for j in range(4):
+                                    players[(i + 1) % len(players)].draw_card(deck.play_deck)
+                            # Change direction
+                            if card[1] == 'd':
+                                print(f"{players[i].name} changed direction")
+                                players.reverse()
                         break
 
                 # Draw card if no card is playable
